@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection — Bait Al Oud</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="cursor"></div>
+    <div id="cursor-trail"></div>
+
+    <!-- NAV -->
+    <nav>
+        <div class="container flex-between" style="width: 100%;">
+            <a href="index.html" class="nav-logo">BAIT AL <span>OUD</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="stock.html" class="active">Collections</a></li>
+                <li><a href="index.html#signature">Signature</a></li>
+                <li><a href="index.html#ritual">The Ritual</a></li>
+            </ul>
+            <a class="cart-btn" href="cart.html">&#9675; &nbsp;Cart (<span id="cartCount">0</span>)</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="page-hero container">
+        <div class="container">
+            <div class="geo-bg"></div>
+            <div class="hero-inner reveal">
+                <div class="breadcrumb"><a href="oud_luxury_store.html">Home</a> &nbsp;›&nbsp; <span>Collections</span>
+                </div>
+                <h1 class="page-title">The <em>Vault</em></h1>
+                <p class="page-subtitle">Every essence. Every origin. Rare by nature, not by marketing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORY PILLS -->
+    <div class="category-row reveal">
+        <button class="cat-pill active" data-cat="all" onclick="filterCategory(this)">All</button>
+        <button class="cat-pill" data-cat="Pure Oud Oil" onclick="filterCategory(this)">Pure Oud Oils</button>
+        <button class="cat-pill" data-cat="Oud Blend · EDP" onclick="filterCategory(this)">Oud Blends</button>
+        <button class="cat-pill" data-cat="Attar" onclick="filterCategory(this)">Attars</button>
+        <button class="cat-pill" data-cat="Bakhoor" onclick="filterCategory(this)">Bakhoor</button>
+        <button class="cat-pill" data-cat="Discovery Set" onclick="filterCategory(this)">Discovery Sets</button>
+    </div>
+
+    <!-- STOCK LAYOUT -->
+    <div class="stock-layout container">
+
+        <!-- SIDEBAR -->
+        <aside class="filter-sidebar">
+
+            <div class="filter-group">
+                <span class="filter-group-title">Occasion</span>
+                <label class="filter-option"><input type="checkbox" value="Daily" onchange="applyFilters()"> Daily
+                    Wear</label>
+                <label class="filter-option"><input type="checkbox" value="Evening" onchange="applyFilters()">
+                    Evening</label>
+                <label class="filter-option"><input type="checkbox" value="Royal Events" onchange="applyFilters()">
+                    Royal Events</label>
+                <label class="filter-option"><input type="checkbox" value="Gift" onchange="applyFilters()"> Gift</label>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-group-title">Sillage Strength</span>
+                <label class="filter-option"><input type="radio" name="strength" value="" onchange="applyFilters()"
+                        checked> All</label>
+                <label class="filter-option"><input type="radio" name="strength" value="Intimate"
+                        onchange="applyFilters()"> Intimate</label>
+                <label class="filter-option"><input type="radio" name="strength" value="Moderate"
+                        onchange="applyFilters()"> Moderate</label>
+                <label class="filter-option"><input type="radio" name="strength" value="Commanding"
+                        onchange="applyFilters()"> Commanding</label>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-group-title">Fragrance Notes</span>
+                <label class="filter-option"><input type="checkbox" value="Oud" onchange="applyFilters()"> Oud</label>
+                <label class="filter-option"><input type="checkbox" value="Rose" onchange="applyFilters()"> Rose</label>
+                <label class="filter-option"><input type="checkbox" value="Amber" onchange="applyFilters()">
+                    Amber</label>
+                <label class="filter-option"><input type="checkbox" value="Saffron" onchange="applyFilters()">
+                    Saffron</label>
+                <label class="filter-option"><input type="checkbox" value="Musk" onchange="applyFilters()"> Musk</label>
+                <label class="filter-option"><input type="checkbox" value="Bakhoor" onchange="applyFilters()">
+                    Bakhoor</label>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-group-title">Price Range</span>
+                <div class="range-track">
+                    <input type="range" class="range-input" id="priceRange" min="1000" max="15000" step="200"
+                        value="15000" oninput="updatePriceLabel(this)">
+                </div>
+                <div class="range-labels">
+                    <span>₹1,000</span>
+                    <span id="priceLabel">up to ₹15,000</span>
+                </div>
+            </div>
+
+            <button class="filter-apply" onclick="applyFilters()">Apply Filters</button>
+            <button class="filter-reset" onclick="resetFilters()">Reset All</button>
+        </aside>
+
+        <!-- MAIN -->
+        <main>
+            <div class="results-header reveal flex-between">
+                <div class="results-count"><strong id="resultsCount">0</strong> &nbsp;expressions found</div>
+                <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+                    <div class="view-toggles">
+                        <button class="view-toggle active" title="Grid" id="gridToggle"
+                            onclick="setView('grid')">▦</button>
+                        <button class="view-toggle" title="List" id="listToggle" onclick="setView('list')">☰</button>
+                    </div>
+                    <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+                        <option value="default">Sort: Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name-az">Name: A–Z</option>
+                        <option value="intensity">Most Intense</option>
+                    </select>
+                </div>
+            </div>
+            <div class="prod-grid" id="prodGrid"></div>
+        </main>
+
+    </div>
+
+    <!-- QUICK VIEW MODAL -->
+    <div class="modal-overlay" id="quickModal" onclick="closeModal(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeQuickView()">✕</button>
+            <div class="modal-img" id="modalImg"></div>
+            <div class="modal-body">
+                <span class="modal-family" id="modalFamily"></span>
+                <h2 class="modal-name" id="modalName"></h2>
+                <p class="modal-sub" id="modalSub"></p>
+                <div class="modal-divider"></div>
+                <div class="modal-note">Fragrance Notes</div>
+                <div class="modal-chips" id="modalChips"></div>
+                <div class="modal-price">from ₹<span id="modalPrice"></span></div>
+                <button class="modal-cta" id="modalAcquire">Acquire Essence</button>
+                <a class="modal-detail-link" id="modalDetailLink" href="#">View Full Details →</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom flex-between">
+                <span class="footer-copy">© 2026 Bait Al Oud — All Rights Reserved</span>
+                <div class="footer-links">
+                    <a href="#">Privacy</a><a href="#">Shipping</a><a href="#">Returns</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ======= DATA ======= */
+        const inventory = [
+            {
+                id: 1, name: 'Cambodian Noir', family: 'Pure Oud Oil', subtitle: 'Dark forest oud · Alcohol-free', badge: 'Rare Harvest', badgeClass: 'badge-rare', occasion: 'Evening', sillageLabel: 'Intimate', chips: ['Oud', 'Smoky', 'Animalic', 'Resinous'], sizes: [{ label: '3 ml', price: 3800 }, { label: '6 ml', price: 6800 }], intensity: 95,
+                bottleSVG: `<svg viewBox="0 0 160 260" width="120" height="220" fill="none"><defs><linearGradient id="c1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#D4AF37" stop-opacity="0.4"/><stop offset="50%" stop-color="#E8CC6A" stop-opacity="0.7"/><stop offset="100%" stop-color="#D4AF37" stop-opacity="0.4"/></linearGradient></defs><rect x="30" y="110" width="100" height="135" rx="6" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.7"/><rect x="30" y="110" width="100" height="135" rx="6" fill="url(#c1)" fill-opacity="0.2"/><rect x="50" y="70" width="60" height="43" fill="#0A0908" stroke="#D4AF37" stroke-width="0.5"/><rect x="60" y="56" width="40" height="16" rx="3" fill="#D4AF37" fill-opacity="0.3" stroke="#D4AF37" stroke-width="0.6"/><circle cx="80" cy="48" r="10" fill="#D4AF37" fill-opacity="0.4" stroke="#D4AF37" stroke-width="0.6"/><rect x="40" y="140" width="80" height="65" fill="none" stroke="#D4AF37" stroke-width="0.4"/><text x="80" y="165" font-family="Cinzel,serif" font-size="8" fill="#D4AF37" text-anchor="middle" opacity="0.9">CAMBODIAN</text><text x="80" y="177" font-family="Cinzel,serif" font-size="8" fill="#D4AF37" text-anchor="middle" opacity="0.9">NOIR</text></svg>`
+            },
+            {
+                id: 2, name: 'Royal Hindi', family: 'Oud Blend · EDP', subtitle: 'Indian oud with saffron & amber', badge: 'New Arrival', badgeClass: 'badge-new', occasion: 'Evening', sillageLabel: 'Moderate', chips: ['Saffron', 'Oud', 'Amber', 'Musk'], sizes: [{ label: '50 ml', price: 5200 }, { label: '100 ml', price: 9000 }], intensity: 82,
+                bottleSVG: `<svg viewBox="0 0 160 260" width="120" height="220" fill="none"><defs><linearGradient id="c2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0F3D2E" stop-opacity="0.5"/><stop offset="100%" stop-color="#0B0B0B"/></linearGradient></defs><ellipse cx="80" cy="185" rx="50" ry="65" fill="url(#c2)" stroke="#D4AF37" stroke-width="0.7"/><ellipse cx="80" cy="185" rx="38" ry="50" fill="none" stroke="#D4AF37" stroke-width="0.35"/><rect x="60" y="75" width="40" height="58" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.5"/><ellipse cx="80" cy="72" rx="22" ry="8" fill="#D4AF37" fill-opacity="0.25" stroke="#D4AF37" stroke-width="0.6"/><text x="80" y="180" font-family="Cinzel,serif" font-size="8" fill="#D4AF37" text-anchor="middle" opacity="0.9">ROYAL</text><text x="80" y="194" font-family="Cinzel,serif" font-size="8" fill="#D4AF37" text-anchor="middle" opacity="0.9">HINDI</text></svg>`
+            },
+            {
+                id: 3, name: 'Damascene Oud Rose', family: 'Attar', subtitle: 'Syrian rose enveloped in oud smoke', badge: 'Limited Distillation', badgeClass: 'badge-ltd', occasion: 'Evening', sillageLabel: 'Intimate', chips: ['Rose', 'Oud', 'Saffron', 'Frankincense'], sizes: [{ label: '6 ml', price: 4500 }, { label: '12 ml', price: 8200 }], intensity: 80,
+                bottleSVG: `<svg viewBox="0 0 160 260" width="120" height="220" fill="none"><defs><linearGradient id="c3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#5A0F0F" stop-opacity="0.4"/><stop offset="100%" stop-color="#0B0B0B" stop-opacity="0.7"/></linearGradient></defs><rect x="20" y="108" width="120" height="140" rx="60" fill="url(#c3)" stroke="#D4AF37" stroke-width="0.7"/><rect x="20" y="108" width="120" height="140" rx="60" fill="none" stroke="#D4AF37" stroke-width="0.35" stroke-dasharray="3,5"/><rect x="55" y="58" width="50" height="53" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.5"/><rect x="62" y="42" width="36" height="18" rx="4" fill="#D4AF37" fill-opacity="0.3" stroke="#D4AF37" stroke-width="0.6"/><text x="80" y="175" font-family="Cinzel,serif" font-size="7.5" fill="#D4AF37" text-anchor="middle" opacity="0.9">OUD ROSE</text></svg>`
+            },
+            {
+                id: 4, name: 'Night of Amber', family: 'Signature Blend · EDP', subtitle: 'Desert amber & Omani frankincense', badge: 'Royal Reserve', badgeClass: 'badge-rare', occasion: 'Royal Events', sillageLabel: 'Commanding', chips: ['Amber', 'Frankincense', 'Oud', 'Musk'], sizes: [{ label: '50 ml', price: 6800 }, { label: '100 ml', price: 11500 }], intensity: 88,
+                bottleSVG: `<svg viewBox="0 0 160 260" width="120" height="220" fill="none"><rect x="20" y="95" width="120" height="155" rx="4" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.7"/><rect x="20" y="95" width="120" height="155" rx="4" fill="rgba(212,175,55,0.1)"/><rect x="44" y="52" width="72" height="46" fill="#0A0908" stroke="#D4AF37" stroke-width="0.5"/><rect x="56" y="38" width="48" height="16" rx="3" fill="#D4AF37" fill-opacity="0.3" stroke="#D4AF37" stroke-width="0.6"/><line x1="20" y1="130" x2="140" y2="130" stroke="#D4AF37" stroke-width="0.35"/><line x1="20" y1="220" x2="140" y2="220" stroke="#D4AF37" stroke-width="0.3"/><text x="80" y="158" font-family="Cinzel,serif" font-size="7.5" fill="#D4AF37" text-anchor="middle" opacity="0.9">NIGHT OF</text><text x="80" y="171" font-family="Cinzel,serif" font-size="7.5" fill="#D4AF37" text-anchor="middle" opacity="0.9">AMBER</text></svg>`
+            },
+            {
+                id: 5, name: 'Oud Mubakhar', family: 'Bakhoor', subtitle: 'Sacred incense for the home', badge: 'New Distillation', badgeClass: 'badge-new', occasion: 'Daily', sillageLabel: 'Commanding', chips: ['Bakhoor', 'Rose', 'Musk', 'Sandalwood'], sizes: [{ label: '50 g', price: 1800 }, { label: '100 g', price: 3200 }], intensity: 85,
+                bottleSVG: `<svg viewBox="0 0 160 260" width="120" height="220" fill="none"><defs><linearGradient id="c5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D4AF37" stop-opacity="0.3"/><stop offset="100%" stop-color="#D4AF37" stop-opacity="0.06"/></linearGradient></defs><rect x="22" y="88" width="116" height="155" rx="58" fill="url(#c5)" stroke="#D4AF37" stroke-width="0.7"/><rect x="52" y="50" width="56" height="40" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.5"/><rect x="60" y="36" width="40" height="16" rx="8" fill="#D4AF37" fill-opacity="0.35" stroke="#D4AF37" stroke-width="0.5"/><ellipse cx="80" cy="180" rx="40" ry="50" fill="none" stroke="#D4AF37" stroke-width="0.35"/><text x="80" y="176" font-family="Cinzel,serif" font-size="7.5" fill="#D4AF37" text-anchor="middle" opacity="0.9">OUD</text><text x="80" y="190" font-family="Cinzel,serif" font-size="7" fill="#D4AF37" text-anchor="middle" opacity="0.8">MUBAKHAR</text></svg>`
+            },
+            {
+                id: 6, name: 'The Vault Discovery', family: 'Discovery Set', subtitle: 'Five legendary oud expressions', badge: "Collector's Edition", badgeClass: 'badge-ltd', occasion: 'Gift', sillageLabel: 'Moderate', chips: ['Cambodian', 'Hindi', 'Rose', 'Amber'], sizes: [{ label: 'Complete Set', price: 4200 }], intensity: 86,
+                bottleSVG: `<svg viewBox="0 0 160 260" width="120" height="220" fill="none"><rect x="20" y="88" width="120" height="155" rx="4" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.7"/><rect x="20" y="88" width="120" height="155" rx="4" fill="rgba(212,175,55,0.08)"/><rect x="40" y="50" width="80" height="40" fill="#0A0908" stroke="#D4AF37" stroke-width="0.5"/><rect x="52" y="34" width="56" height="18" rx="2" fill="#D4AF37" fill-opacity="0.3" stroke="#D4AF37" stroke-width="0.6"/><line x1="20" y1="120" x2="140" y2="120" stroke="#D4AF37" stroke-width="0.35"/><text x="80" y="143" font-family="Cinzel,serif" font-size="7.5" fill="#D4AF37" text-anchor="middle" opacity="0.85">DISCOVERY</text><text x="80" y="156" font-family="Cinzel,serif" font-size="7.5" fill="#D4AF37" text-anchor="middle" opacity="0.85">VAULT</text><text x="80" y="172" font-family="Cinzel,serif" font-size="7" fill="#D4AF37" text-anchor="middle" opacity="0.55">5 × 2ml</text><rect x="32" y="200" width="96" height="32" fill="none" stroke="#D4AF37" stroke-width="0.3"/><text x="80" y="218" font-family="Cinzel,serif" font-size="6.5" fill="#D4AF37" text-anchor="middle" opacity="0.4">BAIT AL OUD</text></svg>`
+            }
+        ];
+
+        /* ======= STATE ======= */
+        let activeCategory = 'all';
+        let viewMode = 'grid';
+        let cartCount = 0;
+
+        /* ======= RENDER ======= */
+        function renderGrid(list) {
+            const grid = document.getElementById('prodGrid');
+            document.getElementById('resultsCount').textContent = list.length;
+            grid.className = 'prod-grid' + (viewMode === 'list' ? ' list-view' : '');
+
+            if (!list.length) {
+                grid.innerHTML = `<div class="empty-state"><h3>No essences found</h3><p>Try adjusting your filters to reveal more of the vault.</p></div>`;
+                return;
+            }
+
+            grid.innerHTML = list.map(item => `
+    <div class="prod-card ${viewMode === 'list' ? 'list-view-card' : ''}" data-id="${item.id}">
+      <div class="prod-img" style="background:var(--card-bg)">
+        <div class="prod-shimmer"></div>
+        <div class="prod-glow"></div>
+        <span class="prod-badge ${item.badgeClass}">${item.badge}</span>
+        <button class="wishlist-icon" onclick="toggleWishlist(this)" title="Save to Wishlist">&#9825;</button>
+        <div style="transform:scale(0.75);opacity:0.8;position:relative;z-index:1">${item.bottleSVG}</div>
+        <div class="quick-view" onclick="openQuickView(${item.id})">Quick View</div>
+      </div>
+      <div class="prod-body">
+        <span class="prod-note">${item.family}</span>
+        <div class="prod-name">${item.name}</div>
+        <p class="prod-sub">${item.subtitle}</p>
+        <div class="prod-chips">${item.chips.map(c => `<span class="prod-chip">${c}</span>`).join('')}</div>
+        <div class="prod-footer-row flex-between">
+          <div>
+            <span class="prod-price-from">from</span>
+            <span class="prod-price">₹${item.sizes[0].price.toLocaleString('en-IN')}</span>
+          </div>
+          <a class="prod-view-btn" href="perfume-detail.html?id=${item.id}">View</a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+        }
+
+        /* ======= FILTERS ======= */
+        function applyFilters() {
+            const occasions = [...document.querySelectorAll('input[type=checkbox][value]')].filter(i => i.checked && ['Daily', 'Evening', 'Royal Events', 'Gift'].includes(i.value)).map(i => i.value);
+            const strength = document.querySelector('input[name=strength]:checked')?.value || '';
+            const notes = [...document.querySelectorAll('input[type=checkbox]')].filter(i => i.checked && ['Oud', 'Rose', 'Amber', 'Saffron', 'Musk', 'Bakhoor'].includes(i.value)).map(i => i.value);
+            const maxPrice = +document.getElementById('priceRange').value;
+            const sort = document.getElementById('sortSelect').value;
+
+            let filtered = inventory.filter(p => {
+                if (activeCategory !== 'all' && !p.family.startsWith(activeCategory)) return false;
+                if (occasions.length && !occasions.includes(p.occasion)) return false;
+                if (strength && p.sillageLabel !== strength) return false;
+                if (notes.length && !notes.some(n => p.chips.includes(n))) return false;
+                if (p.sizes[0].price > maxPrice) return false;
+                return true;
+            });
+
+            if (sort === 'price-low') filtered.sort((a, b) => a.sizes[0].price - b.sizes[0].price);
+            if (sort === 'price-high') filtered.sort((a, b) => b.sizes[0].price - a.sizes[0].price);
+            if (sort === 'name-az') filtered.sort((a, b) => a.name.localeCompare(b.name));
+            if (sort === 'intensity') filtered.sort((a, b) => b.intensity - a.intensity);
+
+            renderGrid(filtered);
+        }
+
+        function resetFilters() {
+            document.querySelectorAll('input[type=checkbox]').forEach(i => i.checked = false);
+            document.querySelector('input[name=strength][value=""]').checked = true;
+            document.getElementById('priceRange').value = 15000;
+            document.getElementById('priceLabel').textContent = 'up to ₹15,000';
+            document.getElementById('sortSelect').value = 'default';
+            applyFilters();
+        }
+
+        function filterCategory(btn) {
+            document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            activeCategory = btn.dataset.cat;
+            applyFilters();
+        }
+
+        function updatePriceLabel(el) {
+            document.getElementById('priceLabel').textContent = 'up to ₹' + parseInt(el.value).toLocaleString('en-IN');
+            applyFilters();
+        }
+
+        function setView(mode) {
+            viewMode = mode;
+            document.getElementById('gridToggle').classList.toggle('active', mode === 'grid');
+            document.getElementById('listToggle').classList.toggle('active', mode === 'list');
+            applyFilters();
+        }
+
+        /* ======= WISHLIST ======= */
+        function toggleWishlist(btn) {
+            btn.classList.toggle('saved');
+            btn.innerHTML = btn.classList.contains('saved') ? '&#9829;' : '&#9825;';
+        }
+
+        /* ======= QUICK VIEW MODAL ======= */
+        function openQuickView(id) {
+            const p = inventory.find(x => x.id === id);
+            if (!p) return;
+            document.getElementById('modalFamily').textContent = p.family;
+            document.getElementById('modalName').textContent = p.name;
+            document.getElementById('modalSub').textContent = p.subtitle;
+            document.getElementById('modalChips').innerHTML = p.chips.map(c => `<span class="modal-chip">${c}</span>`).join('');
+            document.getElementById('modalPrice').textContent = p.sizes[0].price.toLocaleString('en-IN');
+            document.getElementById('modalDetailLink').href = `perfume-detail.html?id=${p.id}`;
+            document.getElementById('modalImg').innerHTML = `<div style="opacity:0.85">${p.bottleSVG}</div>`;
+            const cta = document.getElementById('modalAcquire');
+            cta.onclick = function () { this.textContent = 'Added ✦'; this.style.background = 'var(--gold-light)'; cartCount++; document.getElementById('cartCount').textContent = cartCount; setTimeout(() => { this.textContent = 'Acquire Essence'; this.style.background = '' }, 1800) };
+            document.getElementById('quickModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeQuickView() {
+            document.getElementById('quickModal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        function closeModal(e) { if (e.target.id === 'quickModal') closeQuickView() }
+        window.openQuickView = openQuickView; window.closeQuickView = closeQuickView; window.closeModal = closeModal;
+        window.filterCategory = filterCategory; window.applyFilters = applyFilters; window.resetFilters = resetFilters;
+        window.updatePriceLabel = updatePriceLabel; window.setView = setView; window.toggleWishlist = toggleWishlist;
+
+        /* ======= INIT ======= */
+        renderGrid(inventory);
+
+        /* ======= CURSOR ======= */
+        const cursor = document.getElementById('cursor');
+        const trail = document.getElementById('cursor-trail');
+        let mx = 0, my = 0, tx = 0, ty = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px' });
+        (function animateTrail() { tx += (mx - tx) * .15; ty += (my - ty) * .15; trail.style.left = tx + 'px'; trail.style.top = ty + 'px'; requestAnimationFrame(animateTrail) })();
+        document.querySelectorAll('a,button').forEach(el => {
+            el.addEventListener('mouseenter', () => { cursor.style.width = '18px'; cursor.style.height = '18px'; cursor.style.background = 'rgba(212,175,55,0.5)' });
+            el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; cursor.style.background = 'var(--gold)' });
+        });
+
+        /* Scroll reveal */
+        const ios = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ios.unobserve(e.target) } }), { threshold: .1 });
+        document.querySelectorAll('.reveal').forEach(el => ios.observe(el));
+    </script>
+</body>
+
+</html>

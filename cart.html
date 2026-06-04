@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart — Bait Al Oud</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="cursor"></div>
+    <div id="cursor-trail"></div>
+
+    <!-- NAV -->
+    <nav>
+        <div class="container flex-between" style="width: 100%;">
+            <a href="index.html" class="nav-logo">BAIT AL <span>OUD</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="stock.html">Collections</a></li>
+                <li><a href="index.html#signature">Signature</a></li>
+                <li><a href="index.html#ritual">The Ritual</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+            <div class="nav-right">
+                <a class="nav-link-plain" href="stock.html">Browse</a>
+                <a class="cart-badge-nav" href="cart.html">
+                    &#9675; Cart <span class="count" id="navCartCount">3</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE WRAPPER -->
+    <div class="page-wrap">
+
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb fade-in">
+            <a href="index.html">Home</a> &nbsp;›&nbsp;
+            <a href="stock.html">Collections</a> &nbsp;›&nbsp;
+            <span>Your Cart</span>
+        </div>
+
+        <!-- STEPS -->
+        <div class="steps fade-in" id="stepsBar">
+            <div class="step active" id="step1">
+                <div class="step-circle" id="s1c">1</div>
+                <span class="step-label">Your Cart</span>
+            </div>
+            <div class="step-line" id="line1"></div>
+            <div class="step" id="step2">
+                <div class="step-circle" id="s2c">2</div>
+                <span class="step-label">Checkout</span>
+            </div>
+            <div class="step-line" id="line2"></div>
+            <div class="step" id="step3">
+                <div class="step-circle" id="s3c">3</div>
+                <span class="step-label">Confirmed</span>
+            </div>
+        </div>
+
+        <!-- ════════════════ STEP 1: CART ════════════════ -->
+        <div id="cartStep" class="cart-layout container">
+
+            <!-- LEFT: ITEMS -->
+            <div class="left-col">
+                <div class="section-heading">Your Essences</div>
+
+                <!-- Items will be rendered here -->
+                <div class="cart-items" id="cartItems"></div>
+
+                <!-- Empty state -->
+                <div class="empty-cart" id="emptyCart">
+                    <div class="empty-icon">◇</div>
+                    <div class="empty-title">Your vault is empty</div>
+                    <p class="empty-sub">The finest ouds in the world await your discovery. Begin your journey into rare
+                        agarwood.</p>
+                    <a class="empty-cta" href="perfume-stock.html">Explore the Collection</a>
+                </div>
+
+                <!-- PROMO -->
+                <div class="promo-wrap fade-in" id="promoWrap">
+                    <div class="section-heading" style="margin-bottom:1rem">Private Access Code</div>
+                    <div class="promo-inner">
+                        <input class="promo-input" type="text" id="promoInput" placeholder="Enter your access code">
+                        <button class="promo-apply" onclick="applyPromo()">Apply</button>
+                    </div>
+                    <div class="promo-msg" id="promoMsg"></div>
+                </div>
+
+                <!-- GIFT WRAP -->
+                <div class="gift-wrap-row fade-in flex-between" id="giftWrapRow" onclick="toggleGift()">
+                    <div class="gift-left">
+                        <div class="gift-icon">✦</div>
+                        <div class="gift-text">
+                            <h4>Luxury Gift Wrap</h4>
+                            <p>Velvet-lined black box · Hand-calligraphed card — Complimentary above ₹3,000</p>
+                        </div>
+                    </div>
+                    <label class="gift-toggle" onclick="event.stopPropagation()">
+                        <input type="checkbox" id="giftToggle" onchange="toggleGift()">
+                        <span class="gift-toggle-track"></span>
+                    </label>
+                </div>
+
+                <!-- RECOMMENDATIONS -->
+                <div class="recs-section fade-in" id="recsSection">
+                    <div class="recs-title">You May Also Desire</div>
+                    <p class="recs-sub">Rare expressions chosen to complement your selection</p>
+                    <div class="recs-grid" id="recsGrid"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT: ORDER SUMMARY -->
+            <div class="right-col">
+                <div class="summary-card fade-in">
+                    <div class="summary-header">
+                        <div class="summary-title">Order Summary</div>
+                    </div>
+                    <div class="summary-body">
+
+                        <!-- Subtotal rows -->
+                        <div id="summaryRows">
+                            <div class="summary-row flex-between">
+                                <span class="summary-label">Subtotal</span>
+                                <span class="summary-val" id="subtotalVal">—</span>
+                            </div>
+                            <div class="summary-row flex-between" id="discountRow" style="display:none">
+                                <span class="summary-label">Access code discount</span>
+                                <span class="summary-val summary-discount" id="discountVal">—</span>
+                            </div>
+                            <div class="summary-row flex-between" id="giftRow" style="display:none">
+                                <span class="summary-label">Gift wrap</span>
+                                <span class="summary-val">Complimentary</span>
+                            </div>
+                        </div>
+
+                        <!-- Shipping -->
+                        <div class="section-heading" style="margin:1.2rem 0 .8rem;font-size:.6rem">Delivery</div>
+                        <div class="shipping-opts">
+                            <div class="ship-opt selected"
+                                onclick="selectShipping(this,'Standard','3–5 business days',0)" data-price="0">
+                                <div class="ship-radio"></div>
+                                <div class="ship-info">
+                                    <div class="ship-name">Standard</div>
+                                    <div class="ship-eta">3–5 business days</div>
+                                </div>
+                                <span class="ship-price">Free</span>
+                            </div>
+                            <div class="ship-opt" onclick="selectShipping(this,'Express','1–2 business days',299)"
+                                data-price="299">
+                                <div class="ship-radio"></div>
+                                <div class="ship-info">
+                                    <div class="ship-name">Express</div>
+                                    <div class="ship-eta">1–2 business days</div>
+                                </div>
+                                <span class="ship-price">₹299</span>
+                            </div>
+                            <div class="ship-opt" onclick="selectShipping(this,'Same Day','Today by 9 PM',599)"
+                                data-price="599">
+                                <div class="ship-radio"></div>
+                                <div class="ship-info">
+                                    <div class="ship-name">Same Day</div>
+                                    <div class="ship-eta">Today by 9 PM · Select cities</div>
+                                </div>
+                                <span class="ship-price">₹599</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-total-row flex-between">
+                            <span class="summary-total-label">Total</span>
+                            <span class="summary-total-val">₹<span id="totalVal">0</span></span>
+                        </div>
+                        <p class="summary-note">Inclusive of all taxes · GST invoice provided</p>
+
+                        <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout &nbsp;→</button>
+                        <a class="continue-link" href="perfume-stock.html">← Continue Browsing the Vault</a>
+
+                        <!-- Payment badges -->
+                        <div class="payment-row">
+                            <span class="pay-chip">UPI</span>
+                            <span class="pay-chip">Cards</span>
+                            <span class="pay-chip">Net Banking</span>
+                            <span class="pay-chip">COD</span>
+                        </div>
+
+                        <!-- Trust -->
+                        <div class="trust-mini">
+                            <div class="trust-mini-item"><span class="tm-icon">✦</span>Free returns within 15 days</div>
+                            <div class="trust-mini-item"><span class="tm-icon">◈</span>Sealed packaging, no leaks
+                                guaranteed</div>
+                            <div class="trust-mini-item"><span class="tm-icon">◇</span>100% authentic oud · No synthetic
+                                substitutes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /cartStep -->
+
+        <!-- ════════════════ STEP 2: CHECKOUT ════════════════ -->
+        <div id="checkoutStep" class="checkout-panel">
+
+            <div class="cart-layout container">
+                <div class="left-col slide-in">
+
+                    <button class="back-btn" onclick="backToCart()">← Back to Cart</button>
+
+                    <!-- Contact -->
+                    <div class="form-section">
+                        <div class="form-section-title">Contact Information</div>
+                        <div class="form-grid">
+                            <div class="f-field"><label class="f-label">First Name</label><input class="f-input"
+                                    type="text" id="firstName" placeholder="Khalid"></div>
+                            <div class="f-field"><label class="f-label">Last Name</label><input class="f-input"
+                                    type="text" id="lastName" placeholder="Al-Rashidi"></div>
+                            <div class="f-field"><label class="f-label">Email Address</label><input class="f-input"
+                                    type="email" id="emailAddr" placeholder="you@email.com"></div>
+                            <div class="f-field"><label class="f-label">Phone</label><input class="f-input" type="tel"
+                                    id="phoneNum" placeholder="+91 98765 43210"></div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping address -->
+                    <div class="form-section">
+                        <div class="form-section-title">Delivery Address</div>
+                        <div class="form-grid">
+                            <div class="f-field full"><label class="f-label">Address Line 1</label><input
+                                    class="f-input" type="text" id="addr1" placeholder="House / flat number, street">
+                            </div>
+                            <div class="f-field full"><label class="f-label">Address Line 2 (optional)</label><input
+                                    class="f-input" type="text" id="addr2" placeholder="Landmark, area"></div>
+                            <div class="f-field"><label class="f-label">City</label><input class="f-input" type="text"
+                                    id="city" placeholder="Mumbai"></div>
+                            <div class="f-field"><label class="f-label">State</label>
+                                <select class="f-select" id="stateSelect">
+                                    <option value="">Select state</option>
+                                    <option>Andhra Pradesh</option>
+                                    <option>Delhi</option>
+                                    <option>Gujarat</option>
+                                    <option>Karnataka</option>
+                                    <option>Kerala</option>
+                                    <option>Maharashtra</option>
+                                    <option>Rajasthan</option>
+                                    <option>Tamil Nadu</option>
+                                    <option>Telangana</option>
+                                    <option>Uttar Pradesh</option>
+                                    <option>West Bengal</option>
+                                </select>
+                            </div>
+                            <div class="f-field"><label class="f-label">PIN Code</label><input class="f-input"
+                                    type="text" id="pincode" placeholder="400001" maxlength="6"></div>
+                            <div class="f-field"><label class="f-label">Country</label>
+                                <select class="f-select">
+                                    <option>India</option>
+                                    <option>UAE</option>
+                                    <option>Saudi Arabia</option>
+                                    <option>Qatar</option>
+                                    <option>Kuwait</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment -->
+                    <div class="form-section">
+                        <div class="form-section-title">Payment Method</div>
+                        <div class="pay-tabs">
+                            <button class="pay-tab active" onclick="showPayTab('card',this)">Card</button>
+                            <button class="pay-tab" onclick="showPayTab('upi',this)">UPI</button>
+                            <button class="pay-tab" onclick="showPayTab('netbank',this)">Net Banking</button>
+                            <button class="pay-tab" onclick="showPayTab('cod',this)">Cash on Delivery</button>
+                        </div>
+
+                        <!-- Card -->
+                        <div class="pay-panel active" id="pay-card">
+                            <div class="form-grid single">
+                                <div class="f-field"><label class="f-label">Cardholder Name</label><input
+                                        class="f-input" type="text" placeholder="Name on card"></div>
+                            </div>
+                            <div class="card-row" style="margin:.6rem 0">
+                                <div class="f-field"><label class="f-label">Card Number</label><input class="f-input"
+                                        type="text" placeholder="•••• •••• •••• ••••" maxlength="19"></div>
+                                <div class="f-field"><label class="f-label">Expiry</label><input class="f-input"
+                                        type="text" placeholder="MM / YY" maxlength="7"></div>
+                                <div class="f-field"><label class="f-label">CVV</label><input class="f-input"
+                                        type="text" placeholder="•••" maxlength="4"></div>
+                            </div>
+                            <div class="f-field" style="margin-top:.4rem">
+                                <label
+                                    style="display:flex;align-items:center;gap:.7rem;cursor:none;font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--sand-dim)">
+                                    <input type="checkbox" style="accent-color:var(--gold);cursor:none"> Save card for
+                                    future orders
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- UPI -->
+                        <div class="pay-panel" id="pay-upi">
+                            <p
+                                style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--sand-dim);margin-bottom:.9rem;font-size:1rem">
+                                Enter your UPI ID and we will send a payment request instantly.</p>
+                            <div class="upi-row">
+                                <input class="upi-input" type="text" placeholder="yourname@upi" id="upiId">
+                                <button class="upi-verify" onclick="verifyUpi()">Verify</button>
+                            </div>
+                            <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem">
+                                <span class="pay-chip" style="cursor:none"
+                                    onclick="document.getElementById('upiId').value='@gpay'">GPay</span>
+                                <span class="pay-chip" style="cursor:none"
+                                    onclick="document.getElementById('upiId').value='@paytm'">Paytm</span>
+                                <span class="pay-chip" style="cursor:none"
+                                    onclick="document.getElementById('upiId').value='@phonepe'">PhonePe</span>
+                                <span class="pay-chip" style="cursor:none"
+                                    onclick="document.getElementById('upiId').value='@ybl'">BHIM</span>
+                            </div>
+                        </div>
+
+                        <!-- Net Banking -->
+                        <div class="pay-panel" id="pay-netbank">
+                            <div class="netbank-grid">
+                                <button class="netbank-btn" onclick="selectBank(this)">SBI</button>
+                                <button class="netbank-btn" onclick="selectBank(this)">HDFC</button>
+                                <button class="netbank-btn" onclick="selectBank(this)">ICICI</button>
+                                <button class="netbank-btn" onclick="selectBank(this)">Axis</button>
+                                <button class="netbank-btn" onclick="selectBank(this)">Kotak</button>
+                                <button class="netbank-btn" onclick="selectBank(this)">Other</button>
+                            </div>
+                        </div>
+
+                        <!-- COD -->
+                        <div class="pay-panel" id="pay-cod">
+                            <p class="cod-note">Pay in cash when your order arrives at your door. Our courier will carry
+                                your essences in a sealed, tamper-proof velvet box. A handling fee of ₹60 applies for
+                                COD orders.</p>
+                        </div>
+                    </div>
+
+                    <button class="place-order-btn" onclick="placeOrder()">Place Order — ₹<span
+                            id="checkoutTotal">0</span></button>
+
+                </div>
+
+                <!-- Summary (same card, right) -->
+                <div class="right-col">
+                    <div class="summary-card slide-in">
+                        <div class="summary-header">
+                            <div class="summary-title">Your Order</div>
+                        </div>
+                        <div class="summary-body" id="checkoutSummaryBody">
+                            <!-- rendered by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /checkoutStep -->
+
+        <!-- ════════════════ STEP 3: CONFIRMATION ════════════════ -->
+        <div id="confirmStep" class="confirm-panel">
+            <div class="confirm-emblem">
+                <div class="confirm-icon">✦</div>
+            </div>
+            <h1 class="confirm-title">Your Order is Placed</h1>
+            <div class="confirm-num" id="confirmOrderNum">Order #BAO-2026-00</div>
+            <p class="confirm-sub">A confirmation has been sent to your email. Your essences will be prepared and
+                dispatched within 24 hours, sealed in our signature black velvet packaging.</p>
+            <div class="confirm-details">
+                <div class="cd-row"><span class="cd-label">Estimated Delivery</span><span class="cd-val"
+                        id="confirmEta">—</span></div>
+                <div class="cd-row"><span class="cd-label">Total Paid</span><span class="cd-val"
+                        id="confirmPaid">—</span></div>
+                <div class="cd-row"><span class="cd-label">Payment Method</span><span class="cd-val"
+                        id="confirmPayment">—</span></div>
+            </div>
+            <div class="confirm-actions">
+                <a class="conf-btn-primary" href="perfume-stock.html">Continue Exploring</a>
+                <a class="conf-btn-sec" href="#">Track My Order</a>
+            </div>
+        </div>
+
+    </div><!-- /page-wrap -->
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom flex-between">
+                <span class="footer-copy">© 2026 Bait Al Oud — All Rights Reserved</span>
+                <div class="footer-links">
+                    <a href="#">Privacy</a><a href="#">Shipping</a><a href="#">Returns</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ══════════════════════════════════════════════
+           DATA
+        ══════════════════════════════════════════════ */
+        const catalog = [
+            {
+                id: 1, name: 'Cambodian Noir', family: 'Pure Oud Oil', sizes: [{ label: '3 ml', price: 3800 }, { label: '6 ml', price: 6800 }, { label: '12 ml', price: 12500 }],
+                svg: `<svg viewBox="0 0 100 180" width="70" height="126" fill="none"><defs><linearGradient id="i1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#D4AF37" stop-opacity="0.4"/><stop offset="50%" stop-color="#E8CC6A" stop-opacity="0.7"/><stop offset="100%" stop-color="#D4AF37" stop-opacity="0.4"/></linearGradient></defs><rect x="18" y="80" width="64" height="90" rx="5" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.7"/><rect x="18" y="80" width="64" height="90" rx="5" fill="url(#i1)" fill-opacity="0.2"/><rect x="30" y="52" width="40" height="31" fill="#0A0908" stroke="#D4AF37" stroke-width="0.5"/><rect x="38" y="40" width="24" height="14" rx="3" fill="#D4AF37" fill-opacity="0.3" stroke="#D4AF37" stroke-width="0.6"/><circle cx="50" cy="33" r="8" fill="#D4AF37" fill-opacity="0.4" stroke="#D4AF37" stroke-width="0.6"/><rect x="24" y="105" width="52" height="45" fill="none" stroke="#D4AF37" stroke-width="0.4"/><text x="50" y="122" font-family="Cinzel,serif" font-size="5.5" fill="#D4AF37" text-anchor="middle" opacity="0.9">CAMBODIAN</text><text x="50" y="132" font-family="Cinzel,serif" font-size="5.5" fill="#D4AF37" text-anchor="middle" opacity="0.9">NOIR</text></svg>`
+            },
+            {
+                id: 2, name: 'Royal Hindi', family: 'Oud Blend · EDP', sizes: [{ label: '50 ml', price: 5200 }, { label: '100 ml', price: 9000 }],
+                svg: `<svg viewBox="0 0 100 180" width="70" height="126" fill="none"><defs><linearGradient id="i2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0F3D2E" stop-opacity="0.5"/><stop offset="100%" stop-color="#0B0B0B"/></linearGradient></defs><ellipse cx="50" cy="135" rx="34" ry="42" fill="url(#i2)" stroke="#D4AF37" stroke-width="0.7"/><ellipse cx="50" cy="135" rx="25" ry="31" fill="none" stroke="#D4AF37" stroke-width="0.35"/><rect x="38" y="58" width="24" height="38" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.5"/><ellipse cx="50" cy="55" rx="15" ry="6" fill="#D4AF37" fill-opacity="0.25" stroke="#D4AF37" stroke-width="0.6"/><text x="50" y="130" font-family="Cinzel,serif" font-size="5.5" fill="#D4AF37" text-anchor="middle" opacity="0.9">ROYAL</text><text x="50" y="142" font-family="Cinzel,serif" font-size="5.5" fill="#D4AF37" text-anchor="middle" opacity="0.9">HINDI</text></svg>`
+            },
+            {
+                id: 3, name: 'Damascene Oud Rose', family: 'Attar', sizes: [{ label: '6 ml', price: 4500 }, { label: '12 ml', price: 8200 }],
+                svg: `<svg viewBox="0 0 100 180" width="70" height="126" fill="none"><defs><linearGradient id="i3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#5A0F0F" stop-opacity="0.4"/><stop offset="100%" stop-color="#0B0B0B" stop-opacity="0.7"/></linearGradient></defs><rect x="12" y="88" width="76" height="84" rx="38" fill="url(#i3)" stroke="#D4AF37" stroke-width="0.7"/><rect x="35" y="48" width="30" height="43" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.5"/><rect x="40" y="34" width="20" height="16" rx="4" fill="#D4AF37" fill-opacity="0.3" stroke="#D4AF37" stroke-width="0.6"/><text x="50" y="132" font-family="Cinzel,serif" font-size="5" fill="#D4AF37" text-anchor="middle" opacity="0.9">OUD ROSE</text></svg>`
+            },
+            {
+                id: 4, name: 'Night of Amber', family: 'Signature Blend', sizes: [{ label: '50 ml', price: 6800 }, { label: '100 ml', price: 11500 }],
+                svg: `<svg viewBox="0 0 100 180" width="70" height="126" fill="none"><rect x="12" y="68" width="76" height="102" rx="4" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.7"/><rect x="12" y="68" width="76" height="102" rx="4" fill="rgba(212,175,55,0.1)"/><rect x="28" y="38" width="44" height="32" fill="#0A0908" stroke="#D4AF37" stroke-width="0.5"/><rect x="36" y="26" width="28" height="14" rx="3" fill="#D4AF37" fill-opacity="0.3" stroke="#D4AF37" stroke-width="0.6"/><line x1="12" y1="95" x2="88" y2="95" stroke="#D4AF37" stroke-width="0.35"/><text x="50" y="114" font-family="Cinzel,serif" font-size="5.5" fill="#D4AF37" text-anchor="middle" opacity="0.9">NIGHT OF</text><text x="50" y="126" font-family="Cinzel,serif" font-size="5.5" fill="#D4AF37" text-anchor="middle" opacity="0.9">AMBER</text></svg>`
+            },
+            {
+                id: 5, name: 'Oud Mubakhar', family: 'Bakhoor', sizes: [{ label: '50 g', price: 1800 }, { label: '100 g', price: 3200 }],
+                svg: `<svg viewBox="0 0 100 180" width="70" height="126" fill="none"><defs><linearGradient id="i5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D4AF37" stop-opacity="0.3"/><stop offset="100%" stop-color="#D4AF37" stop-opacity="0.05"/></linearGradient></defs><rect x="14" y="64" width="72" height="108" rx="36" fill="url(#i5)" stroke="#D4AF37" stroke-width="0.7"/><rect x="34" y="34" width="32" height="32" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.5"/><rect x="38" y="22" width="24" height="14" rx="7" fill="#D4AF37" fill-opacity="0.3" stroke="#D4AF37" stroke-width="0.6"/><text x="50" y="125" font-family="Cinzel,serif" font-size="5" fill="#D4AF37" text-anchor="middle" opacity="0.9">MUBAKHAR</text></svg>`
+            },
+            {
+                id: 6, name: 'The Vault Discovery', family: 'Discovery Set', sizes: [{ label: 'Complete Set', price: 4200 }],
+                svg: `<svg viewBox="0 0 100 180" width="70" height="126" fill="none"><rect x="12" y="60" width="76" height="108" rx="4" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.7"/><rect x="12" y="60" width="76" height="108" rx="4" fill="rgba(212,175,55,0.08)"/><rect x="26" y="34" width="48" height="28" fill="#0A0908" stroke="#D4AF37" stroke-width="0.5"/><rect x="34" y="22" width="32" height="14" rx="2" fill="#D4AF37" fill-opacity="0.3" stroke="#D4AF37" stroke-width="0.6"/><line x1="12" y1="82" x2="88" y2="82" stroke="#D4AF37" stroke-width="0.35"/><text x="50" y="100" font-family="Cinzel,serif" font-size="5.5" fill="#D4AF37" text-anchor="middle" opacity="0.85">DISCOVERY</text><text x="50" y="113" font-family="Cinzel,serif" font-size="5.5" fill="#D4AF37" text-anchor="middle" opacity="0.85">VAULT</text><text x="50" y="127" font-family="Cinzel,serif" font-size="5" fill="#D4AF37" text-anchor="middle" opacity="0.5">5 × 2ml</text></svg>`
+            }
+        ];
+
+        /* Pre-loaded cart for demo */
+        let cart = [
+            { id: 1, sizeIdx: 0, qty: 1 },
+            { id: 3, sizeIdx: 0, qty: 1 },
+            { id: 4, sizeIdx: 0, qty: 1 }
+        ];
+
+        let shippingCost = 0;
+        let shippingLabel = 'Standard';
+        let shippingEta = '3–5 business days';
+        let discountAmt = 0;
+        let giftWrap = false;
+        let currentPayMethod = 'Card';
+
+        /* ══════════════════════════════════════════════
+           RENDER CART
+        ══════════════════════════════════════════════ */
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            const emptyEl = document.getElementById('emptyCart');
+            const promoWrap = document.getElementById('promoWrap');
+            const giftWrapRow = document.getElementById('giftWrapRow');
+            const recsSection = document.getElementById('recsSection');
+
+            if (!cart.length) {
+                container.innerHTML = '';
+                emptyEl.classList.add('visible');
+                promoWrap.style.display = 'none';
+                giftWrapRow.style.display = 'none';
+                recsSection.style.display = 'none';
+                updateSummary();
+                return;
+            }
+            emptyEl.classList.remove('visible');
+
+            container.innerHTML = cart.map((ci, idx) => {
+                const prod = catalog.find(p => p.id === ci.id);
+                const size = prod.sizes[ci.sizeIdx];
+                const lineTotal = size.price * ci.qty;
+                return `
+    <div class="cart-item fade-in" id="cartItem-${idx}" style="animation-delay:${idx * 0.07}s">
+      <div class="cart-item-img">
+        <div class="item-shimmer"></div>
+        <div style="padding:.5rem;opacity:.85;transform:scale(.85)">${prod.svg}</div>
+      </div>
+      <div class="cart-item-body">
+        <div>
+          <div class="item-family">${prod.family}</div>
+          <div class="item-name">${prod.name}</div>
+          <div class="item-size">${size.label}</div>
+        </div>
+        <div class="item-controls">
+          <button class="qty-btn" onclick="changeQty(${idx},-1)">−</button>
+          <div class="qty-display" id="qty-${idx}">${ci.qty}</div>
+          <button class="qty-btn" onclick="changeQty(${idx},1)">+</button>
+          <button class="item-remove" onclick="removeItem(${idx})">Remove</button>
+          <button class="item-wishlist" onclick="saveForLater(${idx})" title="Save for later">&#9825; Save</button>
+        </div>
+      </div>
+      <div class="cart-item-price">
+        <div class="item-unit-price">₹${size.price.toLocaleString('en-IN')} each</div>
+        <div class="item-total-price">₹${lineTotal.toLocaleString('en-IN')}</div>
+      </div>
+    </div>`;
+            }).join('');
+
+            updateSummary();
+            renderRecs();
+            updateNavCount();
+        }
+
+        /* ══════════════════════════════════════════════
+           SUMMARY
+        ══════════════════════════════════════════════ */
+        function calcSubtotal() {
+            return cart.reduce((sum, ci) => {
+                const prod = catalog.find(p => p.id === ci.id);
+                return sum + prod.sizes[ci.sizeIdx].price * ci.qty;
+            }, 0);
+        }
+
+        function updateSummary() {
+            const sub = calcSubtotal();
+            const total = Math.max(0, sub - discountAmt) + shippingCost + (giftWrap && sub < 3000 ? 0 : 0);
+            document.getElementById('subtotalVal').textContent = '₹' + sub.toLocaleString('en-IN');
+            document.getElementById('totalVal').textContent = total.toLocaleString('en-IN');
+            document.getElementById('checkoutTotal').textContent = total.toLocaleString('en-IN');
+
+            // discount row
+            const dr = document.getElementById('discountRow');
+            if (discountAmt > 0) { dr.style.display = 'flex'; document.getElementById('discountVal').textContent = '−₹' + discountAmt.toLocaleString('en-IN') }
+            else dr.style.display = 'none';
+
+            // gift row
+            const gr = document.getElementById('giftRow');
+            gr.style.display = giftWrap ? 'flex' : 'none';
+        }
+
+        function selectShipping(el, label, eta, cost) {
+            document.querySelectorAll('.ship-opt').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            shippingCost = cost;
+            shippingLabel = label;
+            shippingEta = eta;
+            updateSummary();
+        }
+
+        /* ══════════════════════════════════════════════
+           CART ACTIONS
+        ══════════════════════════════════════════════ */
+        function changeQty(idx, delta) {
+            cart[idx].qty = Math.max(1, cart[idx].qty + delta);
+            renderCart();
+        }
+
+        function removeItem(idx) {
+            const el = document.getElementById('cartItem-' + idx);
+            el.classList.add('removing');
+            setTimeout(() => {
+                cart.splice(idx, 1);
+                renderCart();
+            }, 350);
+        }
+
+        function saveForLater(idx) {
+            const btn = document.querySelectorAll('.item-wishlist')[idx];
+            btn.textContent = '♥ Saved';
+            btn.style.color = 'var(--gold)';
+        }
+
+        function toggleGift() {
+            giftWrap = document.getElementById('giftToggle').checked;
+            updateSummary();
+        }
+
+        /* ══════════════════════════════════════════════
+           PROMO
+        ══════════════════════════════════════════════ */
+        const CODES = { OUD10: '10', VAULT15: '15', RARE20: '20' };
+        function applyPromo() {
+            const code = document.getElementById('promoInput').value.toUpperCase().trim();
+            const msg = document.getElementById('promoMsg');
+            const disc = CODES[code];
+            if (disc) {
+                const sub = calcSubtotal();
+                discountAmt = Math.round(sub * parseInt(disc) / 100);
+                msg.textContent = `Access code accepted — ${disc}% discount applied (−₹${discountAmt.toLocaleString('en-IN')})`;
+                msg.className = 'promo-msg success';
+                updateSummary();
+            } else {
+                discountAmt = 0;
+                msg.textContent = 'This access code is not recognised.';
+                msg.className = 'promo-msg error';
+                updateSummary();
+            }
+        }
+
+        /* ══════════════════════════════════════════════
+           RECOMMENDATIONS
+        ══════════════════════════════════════════════ */
+        function renderRecs() {
+            const cartIds = cart.map(ci => ci.id);
+            const recs = catalog.filter(p => !cartIds.includes(p.id)).slice(0, 4);
+            document.getElementById('recsGrid').innerHTML = recs.map(p => `
+    <a class="rec-card" href="perfume-detail.html?id=${p.id}">
+      <div class="rec-img" style="position:relative">
+        <div class="rec-shimmer"></div>
+        <div style="opacity:.8;transform:scale(.7)">${p.svg}</div>
+      </div>
+      <div class="rec-body">
+        <div class="rec-family">${p.family}</div>
+        <div class="rec-name">${p.name}</div>
+        <div class="rec-footer flex-between">
+          <span class="rec-price">₹${p.sizes[0].price.toLocaleString('en-IN')}</span>
+          <button class="rec-add" onclick="addToCart(event,${p.id})">+ Add</button>
+        </div>
+      </div>
+    </a>`).join('');
+        }
+
+        function addToCart(e, id) {
+            e.preventDefault(); e.stopPropagation();
+            const existing = cart.find(ci => ci.id === id);
+            if (existing) { existing.qty++ }
+            else cart.push({ id, sizeIdx: 0, qty: 1 });
+            renderCart();
+            // pulse the nav badge
+            const badge = document.getElementById('navCartCount');
+            badge.style.transform = 'scale(1.4)';
+            setTimeout(() => badge.style.transform = '', 300);
+        }
+
+        function updateNavCount() {
+            const total = cart.reduce((s, ci) => s + ci.qty, 0);
+            document.getElementById('navCartCount').textContent = total;
+        }
+
+        /* ══════════════════════════════════════════════
+           STEP NAVIGATION
+        ══════════════════════════════════════════════ */
+        function setStep(n) {
+            // steps bar
+            [1, 2, 3].forEach(s => {
+                const el = document.getElementById('step' + s);
+                el.classList.remove('active', 'done');
+                if (s < n) el.classList.add('done');
+                if (s === n) el.classList.add('active');
+                if (s < n) document.getElementById('s' + s + 'c').innerHTML = '✦';
+                else document.getElementById('s' + s + 'c').textContent = s;
+            });
+            [1, 2].forEach(l => {
+                document.getElementById('line' + l).classList.toggle('done', l < n);
+            });
+
+            document.getElementById('cartStep').style.display = n === 1 ? 'grid' : 'none';
+            document.getElementById('checkoutStep').className = n === 2 ? 'checkout-panel active' : 'checkout-panel';
+            document.getElementById('confirmStep').className = n === 3 ? 'confirm-panel active' : 'confirm-panel';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goToCheckout() {
+            if (!cart.length) { alert('Your cart is empty.'); return }
+            setStep(2);
+            renderCheckoutSummary();
+        }
+
+        function backToCart() { setStep(1) }
+
+        function renderCheckoutSummary() {
+            const sub = calcSubtotal();
+            const total = Math.max(0, sub - discountAmt) + shippingCost;
+            const body = document.getElementById('checkoutSummaryBody');
+            body.innerHTML = cart.map(ci => {
+                const p = catalog.find(x => x.id === ci.id);
+                const sz = p.sizes[ci.sizeIdx];
+                return `<div class="summary-row flex-between"><span class="summary-label">${p.name} <em style="color:var(--text-muted);font-style:italic;font-size:.85rem">×${ci.qty}</em></span><span class="summary-val">₹${(sz.price * ci.qty).toLocaleString('en-IN')}</span></div>`;
+            }).join('') +
+                `<div class="summary-row flex-between"><span class="summary-label">Delivery (${shippingLabel})</span><span class="summary-val">${shippingCost ? '₹' + shippingCost : 'Free'}</span></div>` +
+                (discountAmt ? `<div class="summary-row flex-between"><span class="summary-label">Discount</span><span class="summary-val summary-discount">−₹${discountAmt.toLocaleString('en-IN')}</span></div>` : '') +
+                `<div class="summary-total-row flex-between"><span class="summary-total-label">Total</span><span class="summary-total-val">₹${total.toLocaleString('en-IN')}</span></div>
+   <div class="trust-mini" style="margin-top:1rem">
+     <div class="trust-mini-item"><span class="tm-icon">✦</span>Sealed & signed-for delivery</div>
+     <div class="trust-mini-item"><span class="tm-icon">◈</span>Free returns within 15 days</div>
+   </div>`;
+            document.getElementById('checkoutTotal').textContent = total.toLocaleString('en-IN');
+        }
+
+        /* ══════════════════════════════════════════════
+           PAYMENT TABS
+        ══════════════════════════════════════════════ */
+        function showPayTab(tab, btn) {
+            document.querySelectorAll('.pay-tab').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.pay-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('pay-' + tab).classList.add('active');
+            const labels = { card: 'Card', upi: 'UPI', netbank: 'Net Banking', cod: 'Cash on Delivery' };
+            currentPayMethod = labels[tab];
+        }
+
+        function verifyUpi() {
+            const val = document.getElementById('upiId').value;
+            if (val) alert('Payment request sent to ' + val + '. Please approve in your UPI app.');
+            else alert('Please enter your UPI ID first.');
+        }
+
+        function selectBank(btn) {
+            document.querySelectorAll('.netbank-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        /* ══════════════════════════════════════════════
+           PLACE ORDER
+        ══════════════════════════════════════════════ */
+        function placeOrder() {
+            const name = document.getElementById('firstName').value;
+            const email = document.getElementById('emailAddr').value;
+            const addr = document.getElementById('addr1').value;
+            if (!name || !email || !addr) {
+                alert('Please fill in your contact information and delivery address.'); return;
+            }
+            const btn = document.querySelector('.place-order-btn');
+            btn.textContent = 'Processing…'; btn.style.opacity = '.7';
+            setTimeout(() => {
+                const sub = calcSubtotal();
+                const total = Math.max(0, sub - discountAmt) + shippingCost;
+                const orderNum = 'BAO-2026-' + Math.floor(10000 + Math.random() * 90000);
+                const eta = shippingLabel === 'Same Day' ? 'Today by 9 PM'
+                    : shippingLabel === 'Express' ? 'Within 1–2 business days'
+                        : 'Within 3–5 business days';
+
+                document.getElementById('confirmOrderNum').textContent = 'Order #' + orderNum;
+                document.getElementById('confirmEta').textContent = eta;
+                document.getElementById('confirmPaid').textContent = '₹' + total.toLocaleString('en-IN');
+                document.getElementById('confirmPayment').textContent = currentPayMethod;
+                cart = [];
+                updateNavCount();
+                setStep(3);
+            }, 1400);
+        }
+        window.placeOrder = placeOrder;
+        window.goToCheckout = goToCheckout; window.backToCart = backToCart;
+        window.showPayTab = showPayTab; window.verifyUpi = verifyUpi; window.selectBank = selectBank;
+        window.changeQty = changeQty; window.removeItem = removeItem; window.saveForLater = saveForLater;
+        window.toggleGift = toggleGift; window.applyPromo = applyPromo; window.addToCart = addToCart;
+        window.selectShipping = selectShipping;
+
+        /* ══════════════════════════════════════════════
+           CURSOR
+        ══════════════════════════════════════════════ */
+        const cursor = document.getElementById('cursor');
+        const trail = document.getElementById('cursor-trail');
+        let mx = 0, my = 0, tx = 0, ty = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px' });
+        (function animate() { tx += (mx - tx) * .15; ty += (my - ty) * .15; trail.style.left = tx + 'px'; trail.style.top = ty + 'px'; requestAnimationFrame(animate) })();
+        document.querySelectorAll('a,button,label').forEach(el => {
+            el.addEventListener('mouseenter', () => { cursor.style.width = '18px'; cursor.style.height = '18px'; cursor.style.background = 'rgba(212,175,55,0.5)' });
+            el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; cursor.style.background = 'var(--gold)' });
+        });
+
+        /* ══════════════════════════════════════════════
+           INIT
+        ══════════════════════════════════════════════ */
+        renderCart();
+        setStep(1);
+    </script>
+</body>
+
+</html>

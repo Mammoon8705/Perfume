@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfume Detail — Bait Al Oud</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="cursor"></div>
+    <div id="cursor-trail"></div>
+
+    <!-- NAV -->
+    <nav>
+        <div class="container flex-between" style="width: 100%;">
+            <a href="index.html" class="nav-logo">BAIT AL <span>OUD</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="stock.html" class="active">Collections</a></li>
+                <li><a href="index.html#signature">Signature</a></li>
+                <li><a href="index.html#ritual">The Ritual</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+            <a class="cart-btn" href="#">&#9675; &nbsp;Cart (0)</a>
+        </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> &nbsp;›&nbsp;
+                <a href="stock.html">Collections</a> &nbsp;›&nbsp;
+                <span id="bc-title">Cambodian Noir</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETAIL LAYOUT -->
+    <div class="detail-layout container">
+
+        <!-- LEFT: GALLERY + TABS -->
+        <div class="left-col fade-in">
+
+            <!-- Gallery -->
+            <div class="gallery">
+                <div class="main-img-wrap">
+                    <span class="img-badge badge-rare" id="prodBadge">Rare Harvest</span>
+                    <div class="bottle-stage" id="bottleStage">
+                        <div class="bottle-glow"></div>
+                        <!-- SVG rendered by JS -->
+                    </div>
+                    <div class="img-nav">
+                        <button class="img-btn" onclick="changeView(-1)">&#8592;</button>
+                        <button class="img-btn" onclick="changeView(1)">&#8594;</button>
+                    </div>
+                    <div class="img-counter"><span id="imgCurrent">1</span> / <span id="imgTotal">3</span></div>
+                </div>
+                <div class="thumbnails" id="thumbsRow"></div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('story',this)">The Story</button>
+                <button class="tab-btn" onclick="showTab('notes',this)">Fragrance Notes</button>
+                <button class="tab-btn" onclick="showTab('ritual',this)">The Ritual</button>
+                <button class="tab-btn" onclick="showTab('craft',this)">Craftsmanship</button>
+            </div>
+
+            <div class="tab-panel active" id="tab-story">
+                <p id="tabStory"></p>
+                <div class="story-quote">
+                    <p id="tabQuote"></p>
+                </div>
+                <p id="tabStory2"></p>
+            </div>
+
+            <div class="tab-panel" id="tab-notes">
+                <div class="notes-visual">
+                    <div class="note-tier">
+                        <div class="note-tier-label">Top</div>
+                        <div class="note-dots" id="notesTop"></div>
+                    </div>
+                    <div class="note-separator"></div>
+                    <div class="note-tier">
+                        <div class="note-tier-label">Heart</div>
+                        <div class="note-dots" id="notesHeart"></div>
+                    </div>
+                    <div class="note-separator"></div>
+                    <div class="note-tier">
+                        <div class="note-tier-label">Base</div>
+                        <div class="note-dots" id="notesBase"></div>
+                    </div>
+                </div>
+                <div class="meters" id="metersBlock">
+                    <div class="meter-row">
+                        <span class="meter-label">Longevity</span>
+                        <div class="meter-track">
+                            <div class="meter-fill" id="meterLongevity" style="width:0%"></div>
+                        </div>
+                        <span class="meter-val" id="meterLongevityVal"></span>
+                    </div>
+                    <div class="meter-row">
+                        <span class="meter-label">Sillage</span>
+                        <div class="meter-track">
+                            <div class="meter-fill" id="meterSillage" style="width:0%"></div>
+                        </div>
+                        <span class="meter-val" id="meterSillageVal"></span>
+                    </div>
+                    <div class="meter-row">
+                        <span class="meter-label">Intensity</span>
+                        <div class="meter-track">
+                            <div class="meter-fill" id="meterIntensity" style="width:0%"></div>
+                        </div>
+                        <span class="meter-val" id="meterIntensityVal"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="tab-ritual">
+                <p
+                    style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--sand-dim);margin-bottom:1.5rem">
+                    Oud is not worn — it is invited. Each application is a ceremony. Follow the ritual of the ancients
+                    to fully honour this essence.
+                </p>
+                <div class="ritual-steps-tab">
+                    <div class="rs-item">
+                        <div class="rs-num">01</div>
+                        <div class="rs-text">
+                            <h4>Warm the Skin</h4>
+                            <p>Apply immediately after bathing. Clean, warm skin is the finest canvas for oud. The heat
+                                opens the pores and draws the oil deeper.</p>
+                        </div>
+                    </div>
+                    <div class="rs-item">
+                        <div class="rs-num">02</div>
+                        <div class="rs-text">
+                            <h4>Pulse Points Only</h4>
+                            <p>Inner wrists, behind the ears, the base of the throat. Never more than three points — oud
+                                is potent by nature.</p>
+                        </div>
+                    </div>
+                    <div class="rs-item">
+                        <div class="rs-num">03</div>
+                        <div class="rs-text">
+                            <h4>Do Not Rub</h4>
+                            <p>Touch the applicator to the skin and let it rest. Friction breaks the molecular structure
+                                and shortens the journey of the scent.</p>
+                        </div>
+                    </div>
+                    <div class="rs-item">
+                        <div class="rs-num">04</div>
+                        <div class="rs-text">
+                            <h4>Allow the Drydown</h4>
+                            <p>The first chapter of an oud is merely the opening. Wait an hour before passing judgment.
+                                The truest character reveals itself slowly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="tab-craft">
+                <p>Agarwood — the sacred heartwood of Aquilaria trees — forms only when the tree responds to infection
+                    or injury. This wound-born resin, accumulated over decades, is the rarest organic substance on
+                    earth.</p>
+                <div class="story-quote">
+                    <p>"A single gram of the finest Cambodian oud costs more than gold. Its rarity is not manufactured —
+                        it is earned through time."</p>
+                </div>
+                <p>Our artisan distillers in the forests of Cambodia, India, and Brunei employ hydro-distillation
+                    methods unchanged since the medieval courts of Arabia. No shortcuts. No synthetic substitutes. Only
+                    wood, water, fire, and patience.</p>
+                <p style="margin-top:1rem">Each batch is tested by a master perfumer before it leaves the atelier. The
+                    result you hold took, on average, fifteen years to become what it is.</p>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: STICKY PANEL -->
+        <div class="sticky-panel fade-in">
+            <div class="prod-header">
+                <span class="prod-family" id="prodFamily">Pure Oud Oil</span>
+                <h1 class="prod-name-main" id="prodName">Cambodian Noir</h1>
+                <p class="prod-subtitle" id="prodSubtitle">Dark forest oud · Alcohol-free</p>
+            </div>
+            <div class="gold-line"></div>
+
+            <!-- Scent chips -->
+            <div class="scent-chips" id="scentChips"></div>
+
+            <!-- Size selector -->
+            <span class="size-label">Select Volume</span>
+            <div class="sizes" id="sizesRow"></div>
+
+            <!-- Price -->
+            <div class="price-block">
+                <div class="price-main">₹<span id="priceDisplay">3,800</span></div>
+                <div class="price-sub" id="priceNote">Pure oud oil · Free delivery above ₹2,500</div>
+            </div>
+
+            <!-- CTAs -->
+            <div class="cta-stack">
+                <button class="acquire-btn" id="acquireBtn" onclick="acquireEssence(this)">Acquire Essence</button>
+                <button class="wishlist-btn" onclick="addWishlist(this)">&#9825; &nbsp;Add to Wishlist</button>
+            </div>
+
+            <!-- Enquire / Gift tabs -->
+            <div class="action-tabs">
+                <button class="action-tab active" onclick="showAction('enquire',this)">Enquire</button>
+                <button class="action-tab" onclick="showAction('gift',this)">Gift Wrap</button>
+                <button class="action-tab" onclick="showAction('sample',this)">Sample</button>
+            </div>
+
+            <div class="action-panel active" id="panel-enquire">
+                <div class="panel-title">Private Enquiry</div>
+                <div class="panel-sub">Questions about provenance, customisation, or bulk orders? We respond personally
+                    within two hours.</div>
+                <div class="e-field"><label>Full Name</label><input type="text" id="enqName" placeholder="Your name">
+                </div>
+                <div class="e-field"><label>Email</label><input type="email" id="enqEmail" placeholder="your@email.com">
+                </div>
+                <div class="e-field"><label>Message</label><textarea id="enqMsg"
+                        placeholder="Ask us about this essence…"></textarea></div>
+                <button class="primary-btn" onclick="submitEnquiry()">Send Enquiry</button>
+                <a class="secondary-btn" href="tel:+919021644307">Call +91 90216 44307</a>
+                <div class="success-msg" id="enq-success">Your enquiry has been received. Expect a personal response
+                    within two hours.</div>
+            </div>
+
+            <div class="action-panel" id="panel-gift">
+                <div class="panel-title">Luxury Gift Wrap</div>
+                <div class="panel-sub">Present this essence in our signature velvet-lined black box with
+                    hand-calligraphed card. Complimentary on orders above ₹3,000.</div>
+                <div class="e-field"><label>Gift Message</label><textarea
+                        placeholder="Your personal message for the recipient…"></textarea></div>
+                <div class="e-field"><label>Occasion</label>
+                    <select>
+                        <option>Eid Mubarak</option>
+                        <option>Wedding Gift</option>
+                        <option>Birthday</option>
+                        <option>Anniversary</option>
+                        <option>Corporate</option>
+                    </select>
+                </div>
+                <button class="primary-btn"
+                    onclick="this.textContent='Gift wrap added ✦';this.style.background='var(--gold-light)'">Add Gift
+                    Wrap</button>
+            </div>
+
+            <div class="action-panel" id="panel-sample">
+                <div class="panel-title">Request a Sample</div>
+                <div class="panel-sub">Receive a 0.5ml sample of this essence before committing. ₹199 per sample,
+                    redeemable against your full purchase.</div>
+                <div class="e-field"><label>Name</label><input type="text" placeholder="Your name"></div>
+                <div class="e-field"><label>Address</label><textarea placeholder="Full delivery address…"
+                        style="min-height:70px"></textarea></div>
+                <button class="primary-btn"
+                    onclick="this.textContent='Sample requested ✦';this.style.background='var(--gold-light)'">Request
+                    Sample — ₹199</button>
+            </div>
+
+            <!-- Trust -->
+            <div class="trust-card">
+                <div class="trust-item"><span class="trust-icon-sm">✦</span><span>100% pure, alcohol-free oud oil</span>
+                </div>
+                <div class="trust-item"><span class="trust-icon-sm">◈</span><span>Ethically sourced rare agarwood</span>
+                </div>
+                <div class="trust-item"><span class="trust-icon-sm">◇</span><span>Velvet-sealed packaging
+                        included</span></div>
+                <div class="trust-item"><span class="trust-icon-sm">✧</span><span>15-day satisfaction guarantee</span>
+                </div>
+                <div class="trust-item"><span class="trust-icon-sm">◆</span><span>Pan-India delivery · Express
+                        available</span></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SIMILAR SECTION -->
+    <div class="similar-section">
+        <h2>You Might Also <em>Desire</em></h2>
+        <div class="similar-divider"></div>
+        <div class="similar-grid" id="similarGrid"></div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom flex-between">
+                <span class="footer-copy">© 2026 Bait Al Oud — All Rights Reserved</span>
+                <div class="footer-links">
+                    <a href="#">Privacy</a><a href="#">Shipping</a><a href="#">Returns</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ======= PERFUME DATA ======= */
+        const inventory = [
+            {
+                id: 1, name: 'Cambodian Noir', family: 'Pure Oud Oil', subtitle: 'Dark forest oud · Alcohol-free',
+                badge: 'Rare Harvest', badgeClass: 'badge-rare',
+                concentration: 'Pure Oud Oil', gender: 'Unisex', occasion: 'Evening',
+                sizes: [{ label: '3 ml', price: 3800 }, { label: '6 ml', price: 6800 }, { label: '12 ml', price: 12500 }],
+                chips: ['Oud', 'Smoky', 'Animalic', 'Resinous'],
+                notesTop: ['First Rain', 'Smoky Resin', 'Green Wood'],
+                notesHeart: ['Cambodian Oud', 'Dark Amber', 'Black Pepper'],
+                notesBase: ['Ancient Resin', 'Musk', 'Incense'],
+                longevity: 92, sillage: 78, intensity: 95,
+                longevityLabel: '12–18 hrs', sillageLabel: 'Intimate', intensityLabel: 'Royal',
+                story: 'Deep in the ancient forests of Cambodia, where light barely reaches the forest floor, grows the Aquilaria tree — the source of the world\'s most coveted oud. Cambodian Noir captures the darkest, most animalic expression of this wood.',
+                quote: 'Some fragrances ask to be noticed. Cambodian Noir does not ask. It announces.',
+                story2: 'Aged for over a decade in sealed copper vessels, this oil carries within it the memory of rain, earth, and time. It is not for the timid. It is for those who understand that true luxury is never gentle.',
+                views: ['FRONT', 'ANGLE', 'OPEN']
+            },
+            {
+                id: 2, name: 'Royal Hindi', family: 'Oud Blend · EDP', subtitle: 'Indian oud with saffron & amber',
+                badge: 'New Arrival', badgeClass: 'badge-new',
+                concentration: 'Eau de Parfum', gender: 'Unisex', occasion: 'Evening',
+                sizes: [{ label: '50 ml', price: 5200 }, { label: '100 ml', price: 9000 }],
+                chips: ['Saffron', 'Oud', 'Amber', 'Musk'],
+                notesTop: ['Kashmir Saffron', 'Bergamot', 'Cardamom'],
+                notesHeart: ['Indian Oud', 'Taif Rose', 'Sandalwood'],
+                notesBase: ['Aged Amber', 'White Musk', 'Benzoin'],
+                longevity: 85, sillage: 88, intensity: 82,
+                longevityLabel: '10–14 hrs', sillageLabel: 'Moderate', intensityLabel: 'Intense',
+                story: 'In the courts of the Mughal emperors, saffron and oud were inseparable. Royal Hindi is a direct descendant of that tradition — a fragrance built for those who wear power naturally.',
+                quote: 'The fragrance of sovereign courts, captured in glass.',
+                story2: 'Indian oud — the richest, most complex of all ouds — forms the beating heart of this composition. Around it, Kashmiri saffron and aged amber construct a palace of scent. This is not perfume for ordinary days.',
+                views: ['FRONT', 'BOTTLE', 'DETAIL']
+            },
+            {
+                id: 3, name: 'Damascene Oud Rose', family: 'Attar', subtitle: 'Syrian rose enveloped in oud smoke',
+                badge: 'Limited Distillation', badgeClass: 'badge-ltd',
+                concentration: 'Attar · Alcohol-free', gender: 'Female', occasion: 'Evening',
+                sizes: [{ label: '6 ml', price: 4500 }, { label: '12 ml', price: 8200 }],
+                chips: ['Rose', 'Oud', 'Saffron', 'Bakhoor'],
+                notesTop: ['Damascus Rose', 'Pink Pepper', 'Cardamom'],
+                notesHeart: ['Taif Rose Absolute', 'Cambodian Oud', 'Frankincense'],
+                notesBase: ['Aged Musk', 'Amber', 'Benzoin Resin'],
+                longevity: 88, sillage: 72, intensity: 80,
+                longevityLabel: '10–15 hrs', sillageLabel: 'Intimate', intensityLabel: 'Intense',
+                story: 'A love letter written in petals and smoke. Damascene Oud Rose begins with the most precious rose absolute in the world — Taif rose, harvested by hand at dawn before the sun can rob its perfume.',
+                quote: 'She wore it once and every room she had ever entered still remembered her.',
+                story2: 'This is a limited distillation. Only 200 bottles of each size were produced from a single harvest of Taif roses. When this batch is gone, it cannot be replicated. The rose will be different. The oud will be different. This exact expression exists only once.',
+                views: ['FRONT', 'SIDE', 'BASE']
+            },
+            {
+                id: 4, name: 'Night of Amber', family: 'Signature Blend · EDP', subtitle: 'Desert amber & Omani frankincense',
+                badge: 'Royal Reserve', badgeClass: 'badge-rare',
+                concentration: 'Eau de Parfum', gender: 'Unisex', occasion: 'Royal Events',
+                sizes: [{ label: '50 ml', price: 6800 }, { label: '100 ml', price: 11500 }],
+                chips: ['Amber', 'Frankincense', 'Oud', 'Musk'],
+                notesTop: ['Omani Frankincense', 'Bergamot', 'Saffron'],
+                notesHeart: ['Golden Amber', 'Oud Blend', 'Cedarwood'],
+                notesBase: ['Labdanum', 'Warm Musk', 'Benzoin', 'Vanilla Resin'],
+                longevity: 90, sillage: 90, intensity: 88,
+                longevityLabel: '14–20 hrs', sillageLabel: 'Commanding', intensityLabel: 'Royal',
+                story: 'The desert at night is not empty. It breathes — warm, amber, ancient. Night of Amber is an olfactory translation of that experience: the cooling sands, the rising frankincense smoke, the golden glow of a fire made from agarwood.',
+                quote: 'This is what the desert would smell like if it were a king.',
+                story2: 'Built around a rare accord of Omani frankincense and golden amber resins, Night of Amber is our flagship creation. It was three years in development. The result is a fragrance that needs no occasion — it creates one.',
+                views: ['FRONT', 'LABEL', 'BASE']
+            },
+            {
+                id: 5, name: 'Oud Mubakhar', family: 'Bakhoor', subtitle: 'Sacred incense for the home',
+                badge: 'New Distillation', badgeClass: 'badge-new',
+                concentration: 'Bakhoor · Incense Wood', gender: 'Unisex', occasion: 'Daily',
+                sizes: [{ label: '50 g', price: 1800 }, { label: '100 g', price: 3200 }],
+                chips: ['Bakhoor', 'Rose', 'Musk', 'Sandalwood'],
+                notesTop: ['Rose Water', 'Saffron'],
+                notesHeart: ['Agarwood Chips', 'Frankincense', 'Sandalwood'],
+                notesBase: ['Precious Oils', 'Musk', 'Amber Resin'],
+                longevity: 60, sillage: 95, intensity: 85,
+                longevityLabel: '2–6 hrs burn', sillageLabel: 'Fills the room', intensityLabel: 'Intense',
+                story: 'Bakhoor — incense wood soaked in precious oils — has been the soul of Middle Eastern hospitality for millennia. To offer bakhoor to a guest is the highest act of welcome. Oud Mubakhar carries that tradition into your home.',
+                quote: 'Let your home speak before you do.',
+                story2: 'Each piece of agarwood is soaked for 21 days in a blend of rose oil, pure musk, and Omani amber. The result burns slowly, releasing a fragrance that transforms any space into a place of sanctuary. One piece per sitting is enough.',
+                views: ['TOP', 'OPEN', 'BURN']
+            },
+            {
+                id: 6, name: 'The Vault Discovery', family: 'Discovery Set', subtitle: 'Five legendary oud expressions',
+                badge: 'Collector\'s Edition', badgeClass: 'badge-ltd',
+                concentration: '5 × 2ml Oils', gender: 'Unisex', occasion: 'Gift',
+                sizes: [{ label: 'Complete Set', price: 4200 }],
+                chips: ['Cambodian', 'Hindi', 'Taif', 'Amber', 'Brunei'],
+                notesTop: ['Five opening accords'],
+                notesHeart: ['Five oud hearts'],
+                notesBase: ['Five base signatures'],
+                longevity: 88, sillage: 82, intensity: 86,
+                longevityLabel: 'Varies per oil', sillageLabel: 'Varies', intensityLabel: 'High',
+                story: 'The Vault Discovery was created for those who wish to understand oud before committing to a single expression. Five of our most celebrated oils, each from a different origin, presented in a velvet-lined collector\'s box.',
+                quote: 'The only way to truly know oud is to let each one speak to you in its own time.',
+                story2: 'Each 2ml vial is drawn from the same batch as our full-sized expressions — not diluted, not altered. You receive exactly what our full bottles contain. The box itself is an heirloom: lacquered black, gold-stamped, sealed with wax.',
+                views: ['BOX', 'VIALS', 'DETAIL']
+            }
+        ];
+
+        /* ======= BOTTLE SVGs ======= */
+        const bottleSVGs = {
+            1: `<svg viewBox="0 0 200 320" width="160" height="320" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="b1a" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#D4AF37" stop-opacity="0.4"/><stop offset="50%" stop-color="#E8CC6A" stop-opacity="0.7"/><stop offset="100%" stop-color="#D4AF37" stop-opacity="0.4"/></linearGradient><linearGradient id="b1b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1A1408"/><stop offset="100%" stop-color="#0B0B0B"/></linearGradient></defs>
+    <rect x="44" y="155" width="112" height="150" rx="8" fill="url(#b1b)" stroke="#D4AF37" stroke-width="0.8"/>
+    <rect x="44" y="155" width="112" height="150" rx="8" fill="url(#b1a)" fill-opacity="0.25"/>
+    <rect x="64" y="100" width="72" height="58" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.6"/>
+    <rect x="74" y="82" width="52" height="20" rx="4" fill="#D4AF37" fill-opacity="0.3" stroke="#D4AF37" stroke-width="0.7"/>
+    <circle cx="100" cy="72" r="12" fill="#D4AF37" fill-opacity="0.45" stroke="#D4AF37" stroke-width="0.8"/>
+    <circle cx="100" cy="72" r="5" fill="#D4AF37" fill-opacity="0.8"/>
+    <rect x="52" y="185" width="96" height="80" rx="2" fill="none" stroke="#D4AF37" stroke-width="0.5"/>
+    <text x="100" y="217" font-family="Cinzel,serif" font-size="10" fill="#D4AF37" text-anchor="middle" opacity="0.9">BAIT AL OUD</text>
+    <text x="100" y="232" font-family="Cinzel,serif" font-size="8" fill="#D4AF37" text-anchor="middle" opacity="0.7">CAMBODIAN NOIR</text>
+    <text x="100" y="248" font-family="Cinzel,serif" font-size="7" fill="#D4AF37" text-anchor="middle" opacity="0.5">PURE OUD OIL</text>
+    <line x1="60" y1="258" x2="140" y2="258" stroke="#D4AF37" stroke-width="0.3"/>
+  </svg>`,
+            2: `<svg viewBox="0 0 200 320" width="140" height="300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="b2a" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0F3D2E" stop-opacity="0.5"/><stop offset="100%" stop-color="#0B0B0B" stop-opacity="0.8"/></linearGradient></defs>
+    <ellipse cx="100" cy="240" rx="56" ry="72" fill="url(#b2a)" stroke="#D4AF37" stroke-width="0.8"/>
+    <ellipse cx="100" cy="240" rx="44" ry="58" fill="none" stroke="#D4AF37" stroke-width="0.4"/>
+    <rect x="76" y="100" width="48" height="70" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.5"/>
+    <ellipse cx="100" cy="97" rx="26" ry="9" fill="#D4AF37" fill-opacity="0.25" stroke="#D4AF37" stroke-width="0.7"/>
+    <text x="100" y="232" font-family="Cinzel,serif" font-size="9" fill="#D4AF37" text-anchor="middle" opacity="0.9">ROYAL HINDI</text>
+    <text x="100" y="248" font-family="Cinzel,serif" font-size="7" fill="#D4AF37" text-anchor="middle" opacity="0.6">BAIT AL OUD</text>
+  </svg>`,
+            3: `<svg viewBox="0 0 200 320" width="140" height="300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="b3a" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#5A0F0F" stop-opacity="0.4"/><stop offset="100%" stop-color="#0B0B0B" stop-opacity="0.7"/></linearGradient></defs>
+    <rect x="36" y="148" width="128" height="158" rx="64" fill="url(#b3a)" stroke="#D4AF37" stroke-width="0.8"/>
+    <rect x="36" y="148" width="128" height="158" rx="64" fill="none" stroke="#D4AF37" stroke-width="0.4" stroke-dasharray="4,6"/>
+    <rect x="70" y="86" width="60" height="65" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.5"/>
+    <rect x="80" y="70" width="40" height="18" rx="4" fill="#D4AF37" fill-opacity="0.3" stroke="#D4AF37" stroke-width="0.6"/>
+    <text x="100" y="220" font-family="Cinzel,serif" font-size="8.5" fill="#D4AF37" text-anchor="middle" opacity="0.9">DAMASCENE</text>
+    <text x="100" y="234" font-family="Cinzel,serif" font-size="8.5" fill="#D4AF37" text-anchor="middle" opacity="0.9">OUD ROSE</text>
+    <text x="100" y="249" font-family="Cinzel,serif" font-size="7" fill="#D4AF37" text-anchor="middle" opacity="0.5">BAIT AL OUD</text>
+  </svg>`,
+            default: `<svg viewBox="0 0 200 320" width="140" height="300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="bd" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#D4AF37" stop-opacity="0.35"/><stop offset="50%" stop-color="#D4AF37" stop-opacity="0.6"/><stop offset="100%" stop-color="#D4AF37" stop-opacity="0.35"/></linearGradient></defs>
+    <rect x="36" y="130" width="128" height="175" rx="6" fill="#0D0B06" stroke="#D4AF37" stroke-width="0.8"/>
+    <rect x="36" y="130" width="128" height="175" rx="6" fill="url(#bd)" fill-opacity="0.2"/>
+    <rect x="62" y="76" width="76" height="57" fill="#0A0908" stroke="#D4AF37" stroke-width="0.5"/>
+    <rect x="78" y="58" width="44" height="20" rx="3" fill="#D4AF37" fill-opacity="0.35" stroke="#D4AF37" stroke-width="0.7"/>
+    <rect x="48" y="165" width="104" height="95" fill="none" stroke="#D4AF37" stroke-width="0.4"/>
+    <text x="100" y="205" font-family="Cinzel,serif" font-size="9" fill="#D4AF37" text-anchor="middle" opacity="0.9">BAIT AL OUD</text>
+  </svg>`
+        };
+
+        /* ======= INIT ======= */
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get('id')) || 1;
+        const perf = inventory.find(p => p.id === id) || inventory[0];
+        let currentView = 0;
+
+        /* Populate */
+        document.getElementById('bc-title').textContent = perf.name;
+        document.getElementById('prodBadge').textContent = perf.badge;
+        document.getElementById('prodBadge').className = 'img-badge ' + perf.badgeClass;
+        document.getElementById('prodFamily').textContent = perf.family;
+        document.getElementById('prodName').textContent = perf.name;
+        document.getElementById('prodSubtitle').textContent = perf.subtitle;
+        document.getElementById('tabStory').textContent = perf.story;
+        document.getElementById('tabQuote').textContent = perf.quote;
+        document.getElementById('tabStory2').textContent = perf.story2;
+
+        /* Notes */
+        document.getElementById('notesTop').innerHTML = perf.notesTop.map(n => `<span class="note-dot">${n}</span>`).join('');
+        document.getElementById('notesHeart').innerHTML = perf.notesHeart.map(n => `<span class="note-dot">${n}</span>`).join('');
+        document.getElementById('notesBase').innerHTML = perf.notesBase.map(n => `<span class="note-dot">${n}</span>`).join('');
+
+        /* Meters — animate after slight delay */
+        setTimeout(() => {
+            document.getElementById('meterLongevity').style.width = perf.longevity + '%';
+            document.getElementById('meterLongevityVal').textContent = perf.longevityLabel;
+            document.getElementById('meterSillage').style.width = perf.sillage + '%';
+            document.getElementById('meterSillageVal').textContent = perf.sillageLabel;
+            document.getElementById('meterIntensity').style.width = perf.intensity + '%';
+            document.getElementById('meterIntensityVal').textContent = perf.intensityLabel;
+        }, 400);
+
+        /* Chips */
+        document.getElementById('scentChips').innerHTML = perf.chips.map(c => `<span class="chip">${c}</span>`).join('');
+
+        /* Bottle */
+        const stage = document.getElementById('bottleStage');
+        const svgHTML = bottleSVGs[perf.id] || bottleSVGs.default;
+        const bottleWrap = document.createElement('div');
+        bottleWrap.style.cssText = 'position:relative;z-index:1;filter:drop-shadow(0 20px 60px rgba(212,175,55,0.15))';
+        bottleWrap.innerHTML = svgHTML;
+        stage.appendChild(bottleWrap);
+
+        /* Views / thumbs */
+        document.getElementById('imgTotal').textContent = perf.views.length;
+        const thumbsRow = document.getElementById('thumbsRow');
+        function renderThumbs() {
+            thumbsRow.innerHTML = perf.views.map((v, i) => `
+    <div class="thumb-placeholder ${i === currentView ? 'active' : ''}" onclick="changeView(${i}-${currentView},true)">
+      <span style="font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.15em;color:var(--${i === currentView ? 'gold' : 'text-muted'})">${v}</span>
+    </div>`).join('');
+        }
+        renderThumbs();
+        function changeView(dir, abs) {
+            if (abs) { currentView = arguments[0] === true ? dir : currentView + dir } else {
+                currentView += dir;
+            }
+            if (currentView < 0) currentView = perf.views.length - 1;
+            if (currentView >= perf.views.length) currentView = 0;
+            document.getElementById('imgCurrent').textContent = currentView + 1;
+            renderThumbs();
+        }
+        window.changeView = changeView;
+
+        /* Sizes */
+        const sizesRow = document.getElementById('sizesRow');
+        perf.sizes.forEach((s, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'size-btn' + (i === 0 ? ' active' : '');
+            btn.textContent = s.label;
+            btn.onclick = function () {
+                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('priceDisplay').textContent = s.price.toLocaleString('en-IN');
+            };
+            sizesRow.appendChild(btn);
+        });
+        document.getElementById('priceDisplay').textContent = perf.sizes[0].price.toLocaleString('en-IN');
+
+        /* Similar */
+        const grid = document.getElementById('similarGrid');
+        const simItems = inventory.filter(p => p.id !== perf.id).slice(0, 3);
+        grid.innerHTML = simItems.map(p => `
+  <a class="sim-card" href="perfume-detail.html?id=${p.id}">
+    <div class="sim-img-wrap" style="background:var(--card-bg);aspect-ratio:1/1">
+      <div class="sim-shimmer"></div>
+      <div style="transform:scale(0.6);opacity:0.7">${bottleSVGs[p.id] || bottleSVGs.default}</div>
+    </div>
+    <div class="sim-body">
+      <span class="sim-badge">${p.family}</span>
+      <div class="sim-name">${p.name}</div>
+      <p class="sim-spec">${p.subtitle}</p>
+      <div class="sim-footer flex-between">
+        <span class="sim-price">from ₹${p.sizes[0].price.toLocaleString('en-IN')}</span>
+        <span class="sim-link">View →</span>
+      </div>
+    </div>
+  </a>`).join('');
+
+        /* Tab functions */
+        function showTab(tab, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+            /* animate meters when notes tab is opened */
+            if (tab === 'notes') {
+                setTimeout(() => {
+                    document.getElementById('meterLongevity').style.width = perf.longevity + '%';
+                    document.getElementById('meterSillage').style.width = perf.sillage + '%';
+                    document.getElementById('meterIntensity').style.width = perf.intensity + '%';
+                }, 100);
+            }
+        }
+        function showAction(panel, btn) {
+            document.querySelectorAll('.action-tab').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.action-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('panel-' + panel).classList.add('active');
+        }
+        window.showTab = showTab; window.showAction = showAction;
+
+        /* Acquire with particle burst */
+        function acquireEssence(btn) {
+            const rect = btn.getBoundingClientRect();
+            for (let i = 0; i < 12; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 60 + Math.random() * 80;
+                p.style.cssText = `left:${rect.left + rect.width / 2}px;top:${rect.top + rect.height / 2}px;--dx:${Math.cos(angle) * dist}px;--dy:${Math.sin(angle) * dist}px`;
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 800);
+            }
+            btn.textContent = 'Added ✦'; btn.style.background = 'var(--gold-light)';
+            setTimeout(() => { btn.textContent = 'Acquire Essence'; btn.style.background = ''; }, 1800);
+        }
+
+        function addWishlist(btn) {
+            btn.textContent = '♥ Saved to Wishlist'; btn.style.color = 'var(--gold)'; btn.style.borderColor = 'rgba(212,175,55,.4)';
+        }
+
+        function submitEnquiry() {
+            const name = document.getElementById('enqName').value;
+            const email = document.getElementById('enqEmail').value;
+            if (!name || !email) { alert('Please fill in your name and email.'); return }
+            document.getElementById('enq-success').style.display = 'block';
+        }
+        window.acquireEssence = acquireEssence; window.addWishlist = addWishlist; window.submitEnquiry = submitEnquiry;
+
+        /* ======= CURSOR ======= */
+        const cursor = document.getElementById('cursor');
+        const trail = document.getElementById('cursor-trail');
+        let mx = 0, my = 0, tx = 0, ty = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px' });
+        (function animateTrail() { tx += (mx - tx) * .15; ty += (my - ty) * .15; trail.style.left = tx + 'px'; trail.style.top = ty + 'px'; requestAnimationFrame(animateTrail) })();
+        document.querySelectorAll('a,button').forEach(el => {
+            el.addEventListener('mouseenter', () => { cursor.style.width = '18px'; cursor.style.height = '18px'; cursor.style.background = 'rgba(212,175,55,0.5)' });
+            el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; cursor.style.background = 'var(--gold)' });
+        });
+    </script>
+</body>
+
+</html>
